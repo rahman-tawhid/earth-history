@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="38%" cy="32%" r="85%">
+      <stop offset="0%" stop-color="#101d2e"/>
+      <stop offset="55%" stop-color="#0a1420"/>
+      <stop offset="100%" stop-color="#05070b"/>
+    </radialGradient>
+    <radialGradient id="ocean" cx="38%" cy="34%" r="75%">
+      <stop offset="0%" stop-color="#1c4b6e"/>
+      <stop offset="60%" stop-color="#123a58"/>
+      <stop offset="100%" stop-color="#0a2036"/>
+    </radialGradient>
+    <radialGradient id="atmo" cx="50%" cy="50%" r="50%">
+      <stop offset="82%" stop-color="#4da8da" stop-opacity="0"/>
+      <stop offset="95%" stop-color="#4da8da" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#4da8da" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="land" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0be6e"/>
+      <stop offset="55%" stop-color="#c9a253"/>
+      <stop offset="100%" stop-color="#a37e3a"/>
+    </linearGradient>
+    <radialGradient id="term" cx="34%" cy="30%" r="80%">
+      <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#01040a" stop-opacity="0.62"/>
+    </radialGradient>
+    <clipPath id="disc"><circle cx="256" cy="256" r="196"/></clipPath>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="230" fill="url(#atmo)"/>
+  <circle cx="256" cy="256" r="196" fill="url(#ocean)"/>
+
+  <g clip-path="url(#disc)">
+    <path fill="url(#land)" d="M150 205 Q176 150 236 158 Q286 164 300 132 Q332 120 352 156 Q372 192 340 214 Q380 236 356 276 Q378 312 330 330 Q300 372 250 352 Q210 386 172 344 Q138 322 158 286 Q120 268 138 232 Q142 214 150 205 Z"/>
+    <path fill="url(#land)" d="M330 356 Q360 350 372 378 Q360 404 328 396 Q312 378 330 356 Z" opacity="0.92"/>
+    <ellipse cx="256" cy="256" rx="196" ry="72" fill="none" stroke="#8fd0f0" stroke-opacity="0.14" stroke-width="2"/>
+    <ellipse cx="256" cy="256" rx="70" ry="196" fill="none" stroke="#8fd0f0" stroke-opacity="0.12" stroke-width="2"/>
+    <circle cx="256" cy="256" r="196" fill="url(#term)"/>
+    <ellipse cx="196" cy="188" rx="58" ry="40" fill="#bfe6ff" opacity="0.10"/>
+  </g>
+
+  <circle cx="256" cy="256" r="196" fill="none" stroke="#4da8da" stroke-opacity="0.5" stroke-width="3"/>
+</svg>

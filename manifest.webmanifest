@@ -1,0 +1,18 @@
+{
+  "name": "Earth History — 4.5 Billion Years",
+  "short_name": "Earth History",
+  "description": "An interactive reconstruction of Earth's palaeogeography, climate and biosphere from accretion to the present day.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#05070b",
+  "theme_color": "#05070b",
+  "categories": ["education", "science", "reference"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

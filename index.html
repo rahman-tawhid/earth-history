@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>Earth History — 4.5 Billion Years, Interactive</title>
+  <meta name="description" content="An interactive reconstruction of Earth's palaeogeography, climate and biosphere from accretion to the present day." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%23123' /%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%234da8da' stroke-width='3'/%3E%3Cpath d='M24 42 Q44 28 66 44 Q78 56 60 68 Q36 76 24 60 Z' fill='%23c9a253'/%3E%3C/svg%3E" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#05070b" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Earth History" />
+  <script type="module" crossorigin src="./assets/index-UPb5YaYA.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/three-CgWYsrDb.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-Dr8MdPv_.css">
+</head>
+<body>
+  <a class="skip-link" href="#scrub">Skip to the timeline</a>
+
+  <div id="stage" aria-hidden="true"></div>
+
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-ring"><span></span></div>
+      <p class="loader-title">Earth History</p>
+      <p class="loader-status" id="loader-status">Reconstructing plate motions…</p>
+    </div>
+  </div>
+
+  <main id="hud" hidden>
+    <header id="topbar">
+      <div id="brand">
+        <h1>Earth History</h1>
+        <p>An interactive reconstruction · 4.567 Ga → present</p>
+      </div>
+
+      <div id="top-actions">
+        <button class="icon-btn" id="btn-deeptime" type="button">Deep time →</button>
+        <button class="icon-btn" id="btn-about" type="button" aria-haspopup="dialog">About</button>
+      </div>
+    </header>
+
+    <div id="columns">
+      <section id="left-rail">
+        <article class="panel" id="epoch-card">
+          <p class="breadcrumb" id="ui-breadcrumb"></p>
+          <h2 id="ui-unit">Hadean<span class="rank" id="ui-rank">Eon</span></h2>
+          <p class="age-line" id="ui-age">4,567 million years ago</p>
+          <p class="context-line" id="ui-context" hidden></p>
+          <div class="confidence" id="ui-confidence" title="Reconstruction confidence">
+            <span class="confidence-label">Confidence</span>
+            <span class="confidence-bar"><i></i></span>
+            <span class="confidence-value"></span>
+          </div>
+        </article>
+
+        <article class="panel" id="narrative-card">
+          <h3 id="ui-chapter-title">A World of Fire</h3>
+          <p id="ui-chapter-text"></p>
+        </article>
+
+        <article class="panel" id="extinction-panel" hidden>
+          <h3 class="panel-title">Mass extinctions</h3>
+          <div id="extinction-list"></div>
+          <p class="panel-note">The five ranked <b>1</b>–<b>5</b> are the canonical Big Five. Select one to travel to it.</p>
+        </article>
+
+        <article class="panel alert" id="event-card" hidden>
+          <p class="event-kind" id="ui-event-kind"></p>
+          <h3 id="ui-event-title"></h3>
+          <p class="event-loss" id="ui-event-loss"></p>
+          <p id="ui-event-cause"></p>
+        </article>
+      </section>
+
+      <section id="right-rail">
+        <article class="panel" id="readout">
+          <h3 class="panel-title">Planetary state</h3>
+          <dl id="readout-list"></dl>
+        </article>
+
+        <article class="panel" id="layers">
+          <h3 class="panel-title">Overlays</h3>
+          <div id="layer-toggles"></div>
+        </article>
+      </section>
+    </div>
+
+    <footer id="timeline" class="panel">
+      <div id="chart-head">
+        <div id="chart-tabs" role="tablist" aria-label="Plotted series"></div>
+        <output id="chart-value" aria-live="off"></output>
+      </div>
+      <div id="chart-wrap">
+        <canvas id="chart"></canvas>
+      </div>
+
+      <div id="scale">
+        <div id="chapter-band" aria-label="Narrative chapters"></div>
+        <div class="band" id="band-era" aria-hidden="true"></div>
+        <div class="band" id="band-period" aria-hidden="true"></div>
+        <div id="scrub"
+             role="slider"
+             tabindex="0"
+             aria-label="Geological time"
+             aria-valuemin="0"
+             aria-valuemax="4567"
+             aria-valuenow="4567"
+             aria-valuetext="4,567 million years ago">
+          <div id="scrub-track"></div>
+          <div id="scrub-progress"></div>
+          <div id="scrub-marks" aria-hidden="true"></div>
+          <div id="playhead" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+
+      <div id="transport">
+        <div class="transport-group">
+          <button class="t-btn" id="btn-prev-chapter" type="button" title="Previous chapter (,)">‹‹</button>
+          <button class="t-btn" id="btn-step-back" type="button" title="Step back (←)">‹</button>
+          <button class="t-btn primary" id="btn-play" type="button" title="Play (space)" aria-pressed="false">
+            <span class="play-icon">▶</span><span class="play-label">Play</span>
+          </button>
+          <button class="t-btn" id="btn-step-fwd" type="button" title="Step forward (→)">›</button>
+          <button class="t-btn" id="btn-next-chapter" type="button" title="Next chapter (.)">››</button>
+        </div>
+
+        <div class="transport-readout">
+          <span id="ui-time" class="time-value">4.57</span>
+          <span id="ui-time-unit" class="time-unit">billion years ago</span>
+          <span id="ui-time-unit-name" class="time-epoch">Hadean Eon</span>
+        </div>
+
+        <div class="transport-group">
+          <label class="speed" for="speed">
+            <span>Rate</span>
+            <select id="speed">
+              <option value="0.25">¼×</option>
+              <option value="0.5">½×</option>
+              <option value="1" selected>1×</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+            </select>
+          </label>
+          <button class="t-btn" id="btn-reset" type="button" title="Back to the beginning (Home)">Restart</button>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <main id="deeptime" hidden>
+    <header id="dt-head">
+      <div id="dt-title">
+        <button class="icon-btn" id="btn-dt-back" type="button">← Globe</button>
+        <h2>Deep time</h2>
+        <p id="dt-scale" aria-live="polite"></p>
+      </div>
+      <div id="dt-stops" role="group" aria-label="Zoom to a scale"></div>
+    </header>
+
+    <div id="dt-wrap">
+      <canvas id="dt-canvas" tabindex="0" role="img"
+              aria-label="A single linear timeline of Earth's history. Scroll to zoom, drag to pan."></canvas>
+    </div>
+
+    <footer id="dt-foot">
+      <p id="dt-hint">Scroll or <b>+</b>/<b>−</b> to zoom · drag or <b>←</b>/<b>→</b> to pan · click the rail to take the globe there</p>
+      <output id="dt-readout"></output>
+    </footer>
+  </main>
+
+  <div id="tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <dialog id="about">
+    <button class="dialog-close" id="btn-about-close" type="button" aria-label="Close">×</button>
+    <h2>About</h2>
+    <div id="about-body"></div>
+  </dialog>
+
+  <p id="a11y-live" class="sr-only" aria-live="polite"></p>
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
