@@ -16,9 +16,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="apple-mobile-web-app-title" content="Earth History" />
-  <script type="module" crossorigin src="./assets/index-UPb5YaYA.js"></script>
+  <script type="module" crossorigin src="./assets/index-Di1AAoxm.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/three-CgWYsrDb.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-Dr8MdPv_.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-BdeK7lWS.css">
 </head>
 <body>
   <a class="skip-link" href="#scrub">Skip to the timeline</a>
@@ -41,7 +41,7 @@
       </div>
 
       <div id="top-actions">
-        <button class="icon-btn" id="btn-deeptime" type="button">Deep time →</button>
+        <button class="icon-btn" id="btn-deeptime" type="button" aria-label="Deep time"><span class="btn-long">Deep time →</span><span class="btn-short">Time</span></button>
         <button class="icon-btn" id="btn-about" type="button" aria-haspopup="dialog">About</button>
       </div>
     </header>
@@ -101,6 +101,12 @@
         <canvas id="chart"></canvas>
       </div>
 
+      <div id="mobile-bar" hidden>
+        <div id="mobile-readout"></div>
+        <button class="t-btn sheet-btn" id="btn-sheet-now" type="button"
+                aria-haspopup="dialog" aria-expanded="false" aria-controls="sheet-now">Now</button>
+      </div>
+
       <div id="scale">
         <div id="chapter-band" aria-label="Narrative chapters"></div>
         <div class="band" id="band-era" aria-hidden="true"></div>
@@ -121,7 +127,7 @@
       </div>
 
       <div id="transport">
-        <div class="transport-group">
+        <div class="transport-group" id="transport-steps">
           <button class="t-btn" id="btn-prev-chapter" type="button" title="Previous chapter (,)">‹‹</button>
           <button class="t-btn" id="btn-step-back" type="button" title="Step back (←)">‹</button>
           <button class="t-btn primary" id="btn-play" type="button" title="Play (space)" aria-pressed="false">
@@ -137,7 +143,7 @@
           <span id="ui-time-unit-name" class="time-epoch">Hadean Eon</span>
         </div>
 
-        <div class="transport-group">
+        <div class="transport-group" id="playback-group">
           <label class="speed" for="speed">
             <span>Rate</span>
             <select id="speed">
@@ -150,9 +156,32 @@
           </label>
           <button class="t-btn" id="btn-reset" type="button" title="Back to the beginning (Home)">Restart</button>
         </div>
+
+        <button class="t-btn sheet-btn" id="btn-sheet-layers" type="button" hidden
+                aria-haspopup="dialog" aria-expanded="false" aria-controls="sheet-layers">Layers</button>
       </div>
     </footer>
   </main>
+
+  <div id="scrim" hidden></div>
+
+  <aside class="sheet" id="sheet-now" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-now-title">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <header class="sheet-head">
+      <h2 id="sheet-now-title">Now</h2>
+      <button class="sheet-close" type="button" data-close-sheet aria-label="Close">×</button>
+    </header>
+    <div class="sheet-body" id="sheet-now-body"></div>
+  </aside>
+
+  <aside class="sheet" id="sheet-layers" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-layers-title">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <header class="sheet-head">
+      <h2 id="sheet-layers-title">Layers</h2>
+      <button class="sheet-close" type="button" data-close-sheet aria-label="Close">×</button>
+    </header>
+    <div class="sheet-body" id="sheet-layers-body"></div>
+  </aside>
 
   <main id="deeptime" hidden>
     <header id="dt-head">
